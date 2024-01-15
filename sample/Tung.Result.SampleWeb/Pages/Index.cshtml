@@ -1,0 +1,36 @@
+﻿@page
+@model Tung.Result.SampleWeb.Pages.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    To test out this sample, POST to the WeatherForecast endpoint using Swagger.
+</p>
+<p>
+    Localized Messages: @Model.Message
+</p>
+<p>
+<a href="/swagger">Open Swagger</a>
+</p>
+<p>
+    <b>Things to try:</b>
+</p>
+<p>WeatherForecast:</p>
+<ul>
+    <li>PostalCode 55555 should work (201 Created)</li>
+    <li>PostalCode "" should fail (400 Bad Request with error list (required))</li>
+    <li>PostalCode "NotFound" should return (404 Not Found)</li>
+    <li>PostalCode "Conflict" should return (409 Conflict)</li>
+    <li>PostalCode "This is too long." should return (400 Bad Request with error list)</li>
+</ul>
+<p>Person:</p>
+<ul>
+    <li>Id 1 should work (200 OK)</li>
+    <li>Any other Id should return (404 Not Found)</li>
+</ul>
+
+
+

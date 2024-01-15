@@ -1,0 +1,33 @@
+name: Publish Tung.Result.AspNetCore and FluentValidation to Nuget.org
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+          dotnet-version: '7.x'
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Publish Tung.Result.AspNetCore to NuGet
+      run: |
+        rm -rf nuget/
+        dotnet pack --no-build src/Tung.Result.AspNetCore/Tung.Result.AspNetCore.csproj --configuration Release --output nuget
+        dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json
+
+    - name: Publish Tung.Result.FluentValidation to NuGet
+      run: |
+        rm -rf nuget/
+        dotnet pack --no-build src/Tung.Result.FluentValidation/Tung.Result.FluentValidation.csproj --configuration Release --output nuget
+        dotnet nuget push nuget/*.nupkg -k '${{ secrets.NUGET_API_KEY }}' --skip-duplicate -s https://api.nuget.org/v3/index.json

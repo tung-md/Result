@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Tung.Result.FluentValidation</PackageId>
+    <Title>Tung.Result.FluentValidation</Title>
+    <Description>A simple package to implement the FluentValidation in Result package.</Description>
+    <Summary>A simple package to implement the FluentValidation in Result package.</Summary>
+    <PackageTags>result;pattern;web;api;aspnetcore;mvc;FluentValidation;Validation</PackageTags>
+    <PackageReleaseNotes>PR 132. Add Result.Conflict</PackageReleaseNotes>
+    <AssemblyName>Tung.Result.FluentValidation</AssemblyName>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tung.Result\Tung.Result.csproj" />
+  </ItemGroup>
+</Project>

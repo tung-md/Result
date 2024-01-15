@@ -1,0 +1,53 @@
+﻿using Tung.Result.AspNetCore;
+using Tung.Result.Sample.Core.DTOs;
+using Tung.Result.Sample.Core.Model;
+using Tung.Result.Sample.Core.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+
+namespace Tung.Result.SampleWeb.WeatherForecastFeature;
+
+[ApiController]
+[Route("[controller]")]
+public class WeatherForecastController : ControllerBase
+{
+    private readonly WeatherService _weatherService;
+    private readonly ILogger<WeatherForecastController> _logger;
+
+    public WeatherForecastController(
+        WeatherService weatherService,
+        ILogger<WeatherForecastController> logger)
+    {
+        _weatherService = weatherService;
+        _logger = logger;
+    }
+
+    /// <summary>
+    /// This uses a filter to convert an Tung.Result return type to an ActionResult.
+    /// This filter could be used per controller or globally!
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [TranslateResultToActionResult]
+    [HttpPost("Create")]
+    public Result<IEnumerable<WeatherForecast>> CreateForecast([FromBody] ForecastRequestDto model)
+    {
+        return _weatherService.GetForecast(model);
+    }
+
+    /// <summary>
+    /// This endpoint demonstrates the mapping of one Result type to another.
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    [HttpPost("Summary")]
+    public ActionResult<WeatherForecastSummaryDto> CreateSummaryForecast([FromBody] ForecastRequestDto model)
+    {
+        return _weatherService.GetSingleForecast(model)
+            .Map(wf => new WeatherForecastSummaryDto(wf.Date, wf.Summary))
+            // Alternatively, a "mapper" method could be used in place of the anonymous method above
+            // .Map(WeatherForecastSummaryDto.MapFrom)
+            .ToActionResult(this);
+    }
+}

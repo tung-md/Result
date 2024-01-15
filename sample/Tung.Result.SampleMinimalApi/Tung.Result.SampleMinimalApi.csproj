@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TargetFrameworks>net7.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Tung.Result.AspNetCore\Tung.Result.AspNetCore.csproj">
+      <SetTargetFramework>TargetFramework=net7.0</SetTargetFramework>
+    </ProjectReference>
+    <ProjectReference Include="..\Tung.Result.Sample.Core\Tung.Result.Sample.Core.csproj" />
+  </ItemGroup>
+
+</Project>
